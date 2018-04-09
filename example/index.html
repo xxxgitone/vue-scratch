@@ -5,10 +5,24 @@
     <title>vue-scratch</title>
     <script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js"></script>
     <script src="../dist/vue-scratch-min.js"></script>
+    <style>
+      .content-wrapper {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      <vue-scratch></vue-scratch>
+      <vue-scratch
+        :cover-width="300"
+        :cover-height="150">
+        <div class="content-wrapper">
+          <h1>恭喜获奖</h1>
+        </div>
+      </vue-scratch>
     </div>
     <script>
       const vm = new Vue({
