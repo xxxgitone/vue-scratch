@@ -33,6 +33,10 @@ export default {
     radius: {
       type: Number,
       default: 12
+    },
+    finshPercent: {
+      type: Number,
+      default: 100
     }
   },
   data () {
@@ -40,7 +44,8 @@ export default {
       canvas: null,
       ctx: null,
       isScratch: false,
-      coverLoaded: false
+      coverLoaded: false,
+      currentPercentage: 0
     }
   },
   computed: {
@@ -71,11 +76,11 @@ export default {
       if (this.hasTouchEvent) {
         this.$refs.canvas.addEventListener('touchstart', this.handleMouseDown)
         this.$refs.canvas.addEventListener('touchmove', this.handleMouseMove)
-        this.$refs.canvas.addEventListener('touchend', this.handleMouseUp)  
+        this.$refs.canvas.addEventListener('touchend', this.handleMouseUp)
       } else {
         this.$refs.canvas.addEventListener('mousedown', this.handleMouseDown)
         this.$refs.canvas.addEventListener('mousemove', this.handleMouseMove)
-        this.$refs.canvas.addEventListener('mouseup', this.handleMouseUp)  
+        this.$refs.canvas.addEventListener('mouseup', this.handleMouseUp)
       }
     },
     getElementLeftAndTop (ele) {
@@ -104,6 +109,21 @@ export default {
         pointY
       }
     },
+    removeCanvas () {
+      this.canvas.parentNode.removeChild(this.canvas)
+    },
+    getCurrentPercentage () {
+      const imageData = this.ctx.getImageData(0, 0, this.coverWidth, this.coverHeight)
+      const pixelsData = imageData.data
+      const len = pixelsData.length
+      let count = 0
+      pixelsData.forEach(item => {
+        if (item === 0) {
+          count++
+        }
+      })
+      return Math.round((count / len) * 100)
+    },
     handleMouseDown (e) {
       this.isScratch = true
     },
@@ -119,13 +139,18 @@ export default {
         this.ctx.globalCompositeOperation = "destination-out"
         this.ctx.arc(pointX, pointY, this.radius, 0, 2 * Math.PI)
         this.ctx.fill()
+        this.percentage = this.getCurrentPercentage()
+        if (this.percentage >= this.finshPercent) {
+          this.removeCanvas()
+          this.$emit('completed')
+        }
       }
     }
   },
   mounted () {
     this.initEvents()
     this.initCanvas()
-  },
+  }
 }
 </script>
 

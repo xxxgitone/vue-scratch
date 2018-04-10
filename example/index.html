@@ -18,7 +18,9 @@
     <div id="app">
       <vue-scratch
         :cover-width="300"
-        :cover-height="150">
+        :cover-height="150"
+        :finsh-percent="50"
+        @completed="handleCompleted">
         <div class="content-wrapper">
           <h1>恭喜获奖</h1>
         </div>
@@ -26,7 +28,12 @@
     </div>
     <script>
       const vm = new Vue({
-        el: '#app'
+        el: '#app',
+        methods: {
+          handleCompleted () {
+            console.log('completed')
+          }
+        }
       })
     </script>
   </body>
