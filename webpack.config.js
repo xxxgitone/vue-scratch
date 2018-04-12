@@ -42,7 +42,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.join(__dirname, './src/')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
@@ -76,4 +77,9 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   ])
+}
+
+// test config
+if (process.env.NODE_ENV === 'test') {
+  devtool: '#inline-source-map'
 }
