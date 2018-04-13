@@ -78,8 +78,3 @@ if (process.env.NODE_ENV === 'production') {
     })
   ])
 }
-
-// test config
-if (process.env.NODE_ENV === 'test') {
-  devtool: '#inline-source-map'
-}

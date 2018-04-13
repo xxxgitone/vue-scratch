@@ -1,5 +1,7 @@
 var webpackConfig = require('../../webpack.config')
 
+delete webpackConfig.entry
+
 module.exports = function (config) {
   config.set({
     // 测试器环境
@@ -16,6 +18,9 @@ module.exports = function (config) {
     },
     // webpack打包规则
     webpack: webpackConfig,
+    webpackMiddleware: {
+      noInfo: true
+    },
     // 覆盖率配置
     coverageReporter: {
       dir: './coverage',
