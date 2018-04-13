@@ -2,6 +2,9 @@ import Vue from 'vue'
 import VueScratch from '../../../src/component/vue-scratch.vue'
 
 describe('Vue-Scratch', () => {
+  it ('data should be a function', () => {
+    expect(VueScratch.data).to.be.a('function')
+  })
 
   it('renders the correct width and height', () => {
     const Constructor = Vue.extend(VueScratch)
