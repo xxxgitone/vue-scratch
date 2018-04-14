@@ -1,10 +1,4 @@
 language: node_js
-sudo: false
+
 node_js:
   - "8.11.1"
-branches:
-  only:
-    - master
-install: travis_wait 30 yarn install
-script:
-  - yarn test
