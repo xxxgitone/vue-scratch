@@ -5,6 +5,6 @@ node_js:
 branches:
   only:
     - master
-install: travis_wait yarn install
+install: travis_wait 30 yarn install
 script:
   - yarn test
